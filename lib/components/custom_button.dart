@@ -33,3 +33,37 @@ class CustomButton extends  StatelessWidget {
     );
   }
 }
+
+class CustomButtonsmall extends  StatelessWidget {
+  final String text;
+  final void Function()? onTap;
+  const CustomButtonsmall({super.key,
+  required this.text,
+  required this.onTap
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child:
+    Center(child:
+    Container(
+      height: 60,
+      width: 120,
+      decoration: BoxDecoration(
+        color: buttonbg,
+        borderRadius: BorderRadius.circular(30)
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(text,style:const TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+          const Icon(Icons.arrow_forward,color: Colors.white,),
+        ],
+      ),
+    ),
+    ),
+    );
+  }
+}
