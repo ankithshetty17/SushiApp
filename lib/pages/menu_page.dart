@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sushiapp/components/custom_button.dart';
+import 'package:sushiapp/components/favfood_tile.dart';
+import 'package:sushiapp/components/food_tile.dart';
+import 'package:sushiapp/models/favfood.dart';
+import 'package:sushiapp/models/food.dart';
+import 'package:sushiapp/pages/food_details.dart';
 import 'package:sushiapp/themes/colors.dart';
 
 class MenuPage  extends StatefulWidget {
@@ -10,6 +15,59 @@ class MenuPage  extends StatefulWidget {
 }
 
 class _MenuPageState extends State<MenuPage> {
+
+  // ignore: non_constant_identifier_names
+  List FavFoodMenu=[
+    FavFood(
+    name:'Sushi-rice', 
+    imagepath: 'assets/images/sushirice.png', 
+    price:'120'
+    ),
+    FavFood(
+    name:'Sushi-rice', 
+    imagepath: 'assets/images/sushirice.png', 
+    price:'120'
+    ),
+    FavFood(
+    name: 'Sushi-rice', 
+    imagepath: 'assets/images/sushirice.png', 
+    price:'120'
+    ),
+
+  ];
+
+// ignore: non_constant_identifier_names
+List FoodMenu = [
+  Food(name: 'Sushi-Rice', 
+       price: '190', 
+       imagepath: 'assets/images/sushirice.png',
+       rating: '4.2'
+       ),
+  Food(name: 'Sushi-Egg', 
+       price: '190', 
+       imagepath: 'assets/images/sushi_egg.png',
+       rating: '4.2'
+       ),
+       Food(name: 'Ramen', 
+       price: '190', 
+       imagepath: 'assets/images/ramen.png',
+       rating: '4.2'
+       ),
+       Food(name: 'Rice', 
+       price: '190', 
+       imagepath: 'assets/images/sushi.png',
+       rating: '4.2'
+       )
+
+];
+
+void navigatetoFoodDetailspage(int index){
+  Navigator.push(context,
+                   MaterialPageRoute(builder: (context)=>const FoodDetail()
+                   )
+                   );
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,10 +132,33 @@ class _MenuPageState extends State<MenuPage> {
             ),
           ),
          const  SizedBox(height: 20,),
-          const Text('Food Menu',style: TextStyle(fontSize:20,fontWeight: FontWeight.bold),)
+          const Text('Food Menu',style: TextStyle(fontSize:20,fontWeight: FontWeight.bold),),
+
+          const  SizedBox(height: 20,),
+          Expanded(
+            child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: FoodMenu.length,
+            itemBuilder: (context,index)=>
+                    FoodTile(
+                      onTap:()=> navigatetoFoodDetailspage(index),
+                   food: FoodMenu[index],
+          ))),
+        const  SizedBox(height: 20,),
+        Flexible(child: 
+         ListView.builder(
+          itemCount: FavFoodMenu.length,
+          scrollDirection: Axis.vertical,
+          itemBuilder: (context,index)=>
+          FavFoodTile(favfood: FavFoodMenu[index],)
+        
+         )
+        ),
         ],
       ),
-      )
+      ),
+      
+    
     );
   }
 }
